@@ -7,7 +7,7 @@ export default (initialValues) => {
     const handleWeatherChange = (value) => {
         setWeather({
             ...weather,
-            value
+            ...value
         })
 
     }

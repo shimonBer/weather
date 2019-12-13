@@ -1,25 +1,21 @@
 import React from 'react';
 import Item from './weather.item';
+import {getRange} from '../../helpFunctions';
 
-export default () => {
+export default ({forecast}) => {
     return (
         <div class="container">
             <div class="row">
-                <div class="col">
-                    <Item />
-                </div>
-                <div class="col">
-                    <Item />
-                </div>
-                <div class="col">
-                    <Item />
-                </div>
-                <div class="col">
-                    <Item />
-                </div>
-                <div class="col">
-                    <Item />
-                </div>
+                {
+                    forecast.DailyForecasts.map((day, index) => {
+                        const range = getRange(forecast.DailyForecasts[index].Temperature.Minimum.Value, forecast.DailyForecasts[index].Temperature.Maximum.Value);
+                        return (<div class="col">
+                                    <Item temperature={range} text='TEXT' />
+                                </div>
+                        )
+                    })
+
+                }
 
             </div>
         </div>
