@@ -1,3 +1,6 @@
+const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+
 export function isEmpty(obj) {
     for(var prop in obj) {
         if(obj.hasOwnProperty(prop))
@@ -18,4 +21,10 @@ export const getRange = (first, second) => {
 export const isKeyInArr = (key, arr) => {
     const keys = Object.keys(arr);
     return keys.includes(key); 
+}
+
+export const getDayOfWeek = (date) => {
+    const dateObj = new Date(date);
+    var dayName = DAYS[dateObj.getDay()];
+    return dayName;
 }

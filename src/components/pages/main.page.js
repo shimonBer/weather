@@ -17,13 +17,20 @@ export default () => {
     const debouncedLoadOptions = _.debounce(loadOptions, wait);
 
     const getAsyncOptions = (inputValue) => {
-        return new Promise((resolve, reject) => {
-            const filtered = autoCompleteService(inputValue);
-            const filteredArr = filtered.map(city => {
-                return {value: city.Key, label: city.LocalizedName}
+        if(inputValue){
+            return new Promise((resolve, reject) => {
+
+                let filteredArr;
+                autoCompleteService(inputValue).then((res) => {
+                    filteredArr = res ? res.map(city => {
+                        return {value: city.Key, label: city.LocalizedName}
+                    }) : []
+                    resolve(filteredArr);
+                });    
             });
-            resolve(filteredArr);
-        });
+
+        }
+        
   }
 
     const updateLocation = newObj =>{

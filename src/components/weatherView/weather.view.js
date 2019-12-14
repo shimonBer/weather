@@ -16,47 +16,55 @@ import {addFavorite, removeFavorite} from '../../redux/actions';
 
 export const View = ({ locationObj, favorites, addToFavorites, removeFromFavorites }) => {
 
-    const [curWeatherObj, updateCurWeatherObj] = useState({});
-    const [forecastWeatherObj, updateForecastWeatherObj] = useState({});
-    const [liked, toggleLiked] = useState(isKeyInArr(locationObj.Key, favorites));
+    const [weatherObj, updateWeather] = useState({
+        curWeatherObj: {},
+        forecastWeatherObj: {}
+
+    });
+    const [liked, toggleLiked] = useState(false);
 
 
-    useEffect(
-        // (async () => {
-        //     const curWeather = await curWeatherService(locationId);
-        //     updateWeatherState({
-        //         curWeatherObj: curWeather[0]
-        //     });
-        //     const forecastWeather = await forecastService(locationId);
-        //     updateWeatherState({
-        //         forecastWeatherObj: forecastWeather
-        //     });
+    useEffect(() => {
+        (async () => {
+            const forecastWeather = await forecastService(locationObj.Key);
+            const curWeather = await curWeatherService(locationObj.Key);
+
+            updateWeather({
+                curWeatherObj: curWeather[0],
+                forecastWeatherObj: forecastWeather
+            });
+            toggleLiked(isKeyInArr(locationObj.Key, favorites));
             
-        // })();
+        })()
 
-        () => {
-            const curWeather = curWeatherService(locationObj.Key);
-            updateCurWeatherObj(curWeather[0]);
+    }, [locationObj]);
+
+       
+
+        // () => {
+        //     const curWeather = curWeatherService(locationObj.Key);
+        //     updateCurWeatherObj(curWeather[0]);
             
-            const forecastWeather = forecastService(locationObj.Key);
-            updateForecastWeatherObj(forecastWeather);
+        //     const forecastWeather = forecastService(locationObj.Key);
+        //     updateForecastWeatherObj(forecastWeather);
   
             
-        } ,[locationObj]); 
+        // } ,[locationObj]); 
 
     const handleLike = () => {
         
         liked ? removeFromFavorites(locationObj.Key) : addToFavorites({'key': locationObj.Key, 'object' : {'cityName': locationObj.LocalizedName, 
-                                                                                            'temperature': curWeatherObj.Temperature.Metric.Value,
-                                                                                            'text': curWeatherObj.WeatherText}});
+                                                                                            'temperature': weatherObj.curWeatherObj.Temperature.Metric.Value,
+                                                                                            'text': weatherObj.curWeatherObj.WeatherText}});
         toggleLiked(!liked);
     }
 
     
     return (
+       
         <>
-            { !isEmpty(curWeatherObj) && 
-                <Jumbotron>
+            { !isEmpty(weatherObj.curWeatherObj) && 
+                (<Jumbotron>
                     <Container style={{textAlign: 'center'}}>
                         <>
                             <Row className="justify-content-center">
@@ -65,20 +73,20 @@ export const View = ({ locationObj, favorites, addToFavorites, removeFromFavorit
                             </Row>
                             
 
-                            <h1>{curWeatherObj.Temperature.Metric.Value}</h1>
-                            <p>{curWeatherObj.WeatherText}</p>
-                            <p class="card-text"><small class="text-muted">Last updated on {new Date().toLocaleTimeString({timeStyle: 'short'})}</small></p>
+                            <h1>{weatherObj.curWeatherObj.Temperature.Metric.Value}</h1>
+                            <p>{weatherObj.curWeatherObj.WeatherText}</p>
+                            <p className="card-text"><small className="text-muted">Last updated on {new Date().toLocaleTimeString({timeStyle: 'short'})}</small></p>
 
                         </>
                     </Container>
-              </Jumbotron>
+              </Jumbotron>)
             }
-            { !isEmpty(forecastWeatherObj) && <Forecast forecast={forecastWeatherObj}/> }
+            { !isEmpty(weatherObj.forecastWeatherObj) && <Forecast forecast={weatherObj.forecastWeatherObj}/> }
         </>
     )
 }
 
-export default connect(
+export default connect (
     function(state) {
         return {
             favorites: state.favorites
