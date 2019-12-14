@@ -1,14 +1,9 @@
 import React from 'react';
-import '../../themes/search.page.scss';
+import AsyncSelect from 'react-select/async';import '../../themes/search.page.scss';
 
-export default () => {
+export default (props) => {
 
     return (
-        <div class="input-group input-group-lg col-4">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Search</span>
-            </div>
-            <input type="text" class="form-control"/>
-        </div>
+        <Select options = {props.options} />
     );
 }

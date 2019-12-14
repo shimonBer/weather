@@ -2,6 +2,7 @@ import React from 'react';
 import Main from './components/pages/main.page';
 import Favorites from './components/pages/favorites.page';
 import NotFound from './components/pages/404.page';
+import {Navbar, Nav, NavItem} from 'react-bootstrap';
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,19 +17,19 @@ function App() {
 
       
       <Router>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <Navbar bg="light" expand="lg">
           <Link className="navbar-brand" to="/main">Weather</Link>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item active">
-                <Link className="nav-link" to="/main">Main</Link>
-              </li>
-              <li class="nav-item active ">
-                <Link className="nav-link" to="/favorites">Favorites</Link>
-              </li>
-            </ul>
-          </div>
-        </nav>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="mr-auto">
+              {/* <Nav.Link href="#home">Home</Nav.Link> */}
+              <Link className="nav-link" to="/main">Main</Link>
+              {/* <Nav.Link href="#link">Link</Nav.Link> */}
+              <Link className="nav-link" to="/favorites">Favorites</Link>
+            </Nav>
+          </Navbar.Collapse>
+          </Navbar>
 
         <Switch>
           <Route exact path="/">
