@@ -28,3 +28,19 @@ export const getDayOfWeek = (date) => {
     var dayName = DAYS[dateObj.getDay()];
     return dayName;
 }
+
+export const getTemp = (obj, isMetric) => {
+    const tempObj = isMetric ? obj.Metric : obj.Imperial;
+    return (`${tempObj.Value}°${tempObj.Unit}`);
+
+}
+
+export const getImg = (imgNum) => {
+    if (imgNum < 10){
+        return (`https://apidev.accuweather.com/developers/Media/Default/WeatherIcons/0${imgNum}-s.png`);
+    } else {
+        return (`https://apidev.accuweather.com/developers/Media/Default/WeatherIcons/${imgNum}-s.png`);
+
+    }
+    
+}

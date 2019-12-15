@@ -1,7 +1,8 @@
-import {ADD_FAVORITE, REMOVE_FAVORITE} from './actions';
+import {ADD_FAVORITE, REMOVE_FAVORITE, TOGGLE_TEMP} from './actions';
 
 const initialState = {
-    favorites: {}
+    favorites: {},
+    isMetric: true
 };
 
 export const reducer = (state = initialState, action) => {
@@ -21,6 +22,9 @@ export const reducer = (state = initialState, action) => {
                 delete new_favorites[key];
                 return {...state, favorites: new_favorites};
             }
+        case TOGGLE_TEMP:
+            return {...state, isMetric: !state.isMetric};
+
         default:
             return state;
     }
