@@ -41,7 +41,8 @@ export const View = ({ locationObj, favorites, addToFavorites, removeFromFavorit
         liked ? removeFromFavorites(locationObj.Key) : addToFavorites({'key': locationObj.Key,
                                                                         'object' : {'cityName': locationObj.LocalizedName, 
                                                                                     'temperature': weatherObj.curWeatherObj.Temperature,
-                                                                                    'text': weatherObj.curWeatherObj.WeatherText}});
+                                                                                    'text': weatherObj.curWeatherObj.WeatherText,
+                                                                                    'icon': weatherObj.curWeatherObj.WeatherIcon}});
         toggleLiked(!liked);
     }
 

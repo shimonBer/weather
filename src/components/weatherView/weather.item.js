@@ -14,11 +14,12 @@ export default ({temperature, text, date, city, link, icon}) =>{
             }
             <h5 className="card-title">{temperature}</h5>
             <p className="card-text">{text}</p>
+            
             {
-                link && <Link to={`/main${link}`}><button className="btn btn-primary">See weather</button></Link>
+                icon && <img src={getImg(icon)} alt="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Smiley.svg/1024px-Smiley.svg.png" width="75" height="45"></img>
             }
             {
-                icon && <img src={getImg(icon)} alt="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Smiley.svg/1024px-Smiley.svg.png"></img>
+                link && <Link to={`/main${link}`}><button className="btn btn-primary">See weather</button></Link>
             }
         </div>
     )

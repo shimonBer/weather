@@ -10,12 +10,12 @@ const favorites = ({favorites, isMetric}) => {
     return (
         
         <Jumbotron>
-            <h2>My Favorites</h2>
+            <h2 align="center">My Favorites</h2>
             <div className="frame">
             {
                 Object.keys(favorites).map((favoriteKey, index) => {
                     return <Item key={index} city={favorites[favoriteKey].cityName} temperature={getTemp(favorites[favoriteKey].temperature, isMetric)} text={favorites[favoriteKey].text}
-                                link={`/${favorites[favoriteKey].cityName}/${favoriteKey}`} />
+                                link={`/${favorites[favoriteKey].cityName}/${favoriteKey}`} icon={favorites[favoriteKey].icon}/>
                 })
 
             }
