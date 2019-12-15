@@ -2,33 +2,34 @@ import React from 'react';
 import Item from '../weatherView/weather.item';
 import {connect} from 'react-redux';
 import '../../themes/cardsDisplay.scss';
-import {Container, Col, Row} from 'reactstrap';
+import Jumbotron from 'react-bootstrap/Jumbotron';
+import '../../themes/view.scss';
+import {getTemp} from '../../helpFunctions';
 
-const favorites = ({favorites}) => {
+const favorites = ({favorites, isMetric}) => {
     return (
-        <>
-            <h1>My favorites</h1>
-            <Container className="view">
-            <Row>
-                {
-                    Object.keys(favorites).map((favoriteKey, index) => {
-                        return <Item key={index} locationId={favoriteKey} city={favorites[favoriteKey].cityName} temperature={favorites[favoriteKey].temperature} text={favorites[favoriteKey].text} />
-                    })
+        
+        <Jumbotron>
+            <h2 align="center">My Favorites</h2>
+            <div className="frame">
+            {
+                Object.keys(favorites).map((favoriteKey, index) => {
+                    return <Item key={index} city={favorites[favoriteKey].cityName} temperature={getTemp(favorites[favoriteKey].temperature, isMetric)} text={favorites[favoriteKey].text}
+                                link={`/${favorites[favoriteKey].cityName}/${favoriteKey}`} icon={favorites[favoriteKey].icon}/>
+                })
 
-                }
+            }
+            </div>
 
-            </Row>
-        </Container>
-        </>
-
-
+        </Jumbotron>
     );
 }
 
 export default connect(
     function(state) {
         return {
-            favorites: state.favorites
+            favorites: state.favorites,
+            isMetric: state.isMetric
 
         }
     }

@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import AsyncSelect from 'react-select/async';
 import View from '../weatherView/weather.view';
 import autoCompleteService from '../../services/locationAutocomplete.service';
-import {API_KEY, DEFAULT_LOCATION_ID, DEFAULT_LOCATION_NAME} from '../../config/configFile';
+import {  DEFAULT_LOCATION_ID, DEFAULT_LOCATION_NAME } from '../../config/configFile';
 import {Container, Col, Row} from 'reactstrap';
 import _ from "lodash";
-
+import {useParams} from "react-router-dom";
 
 export default () => {
 
-    const [selectedObj, setSelectedObj] = useState({ Key: DEFAULT_LOCATION_ID, LocalizedName: DEFAULT_LOCATION_NAME });
-    // const [options, setOptions] = useState({});
+    let { city, cityid } = useParams();
+    const [selectedObj, setSelectedObj] = useState((city && cityid) ?  { Key: cityid, LocalizedName: city } : { Key: DEFAULT_LOCATION_ID, LocalizedName: DEFAULT_LOCATION_NAME });
     
     const wait = 500; 
     const loadOptions = inputValue => getAsyncOptions(inputValue);
@@ -39,7 +39,7 @@ export default () => {
 
     return (
         <>  
-        <Container>
+        <Container style={{marginTop: '1%'}}>
             <Row className="justify-content-center">
                 <Col sm={6}>
                     <AsyncSelect
@@ -57,7 +57,6 @@ export default () => {
             
         </Container>
          <View locationObj={selectedObj}/>
-            
         </>
     );
 }

@@ -1,0 +1,28 @@
+.frame{
+    margin: 1%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: space-between;
+    text-align: center;
+    justify-content: flex-start;
+  
+  }
+
+
+  @media only screen and (max-width: 767px) {
+
+    .frame{
+      justify-content: space-around;
+    }
+
+  }
+  
+  @media only screen and (max-width: 568px) {
+
+    .frame{
+      flex-direction: column;
+    }
+
+  }
+  
